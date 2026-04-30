@@ -161,6 +161,14 @@ Then access:
 
 ---
 
+All date/time values are handled in UTC at the API level.
+
+- Clients may display times in the tenant’s local timezone (e.g. America/Sao_Paulo)
+- The API expects `startTime` in ISO 8601 UTC format (e.g. `2026-05-01T12:00:00Z`)
+- Internally, all scheduling logic runs in UTC to ensure consistency across time zones
+
+When a requested time is invalid or unavailable, the API returns alternative slots already adjusted for the tenant's timezone.
+
 ## 🧪 What This Project Demonstrates
 
 This project was designed to showcase:
