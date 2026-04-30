@@ -1,0 +1,18 @@
+version: "3.9"
+
+services:
+  postgres:
+    image: postgres:15
+    container_name: racbooking-portfolio-postgres
+    restart: unless-stopped
+    environment:
+      POSTGRES_DB: racbooking
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres
+    ports:
+      - "5433:5432"
+    volumes:
+      - racbooking-portfolio-postgres-data:/var/lib/postgresql/data
+
+volumes:
+  racbooking-portfolio-postgres-data:
