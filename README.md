@@ -161,6 +161,8 @@ Then access:
 
 ---
 
+## 🕒 Time Handling
+
 All date/time values are handled in UTC at the API level.
 
 - Clients may display times in the tenant’s local timezone (e.g. America/Sao_Paulo)
