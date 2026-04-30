@@ -1,0 +1,145 @@
+<div
+  class="booking-shell"
+  [style.--brand-primary]="salon?.branding?.primaryColor || '#2C5282'"
+  [style.--brand-secondary]="salon?.branding?.secondaryColor || '#DD6B20'"
+  [style.--brand-bg]="salon?.branding?.backgroundColor || '#f8f9fa'"
+>
+  <header class="py-4 mb-4 border-bottom bg-white">
+    <div class="container">
+      <h1 class="h3 mb-1">{{ salon?.name || 'RAC Booking Demo' }}</h1>
+      <p class="text-muted mb-0">Public booking demo for portfolio architecture</p>
+    </div>
+  </header>
+
+  <main class="container pb-5">
+    <div class="mb-4">
+      <div class="d-flex flex-wrap gap-2">
+        <span class="badge rounded-pill" [class.bg-primary]="currentStep >= 1">1. Service</span>
+        <span class="badge rounded-pill" [class.bg-primary]="currentStep >= 2">2. Professional</span>
+        <span class="badge rounded-pill" [class.bg-primary]="currentStep >= 3">3. Date</span>
+        <span class="badge rounded-pill" [class.bg-primary]="currentStep >= 4">4. Slot</span>
+        <span class="badge rounded-pill" [class.bg-primary]="currentStep >= 5">5. Customer</span>
+        <span class="badge rounded-pill" [class.bg-success]="currentStep >= 6">6. Done</span>
+      </div>
+    </div>
+
+    <div *ngIf="errorMessage" class="alert alert-danger">{{ errorMessage }}</div>
+    <div *ngIf="loadingSalon" class="alert alert-info">Loading salon...</div>
+
+    <ng-container *ngIf="!loadingSalon && salon && !success">
+      <section class="card mb-4">
+        <div class="card-body">
+          <h2 class="h5 mb-3">Select a service</h2>
+          <ng-container *ngFor="let group of groupedServices">
+            <h3 class="h6 text-muted mt-3">{{ group.segmentName }}</h3>
+            <div class="row g-3">
+              <div class="col-md-6" *ngFor="let service of group.services">
+                <button
+                  type="button"
+                  class="card service-card h-100 text-start w-100"
+                  [class.selected]="selectedService?.id === service.id"
+                  (click)="selectService(service)"
+                >
+                  <div class="card-body">
+                    <h4 class="h6 mb-1">{{ service.name }}</h4>
+                    <p class="small text-muted mb-2">{{ service.description }}</p>
+                    <div class="small">
+                      {{ service.durationMinutes }} min + {{ service.bufferAfterMinutes }} min buffer
+                    </div>
+                    <strong>${{ service.price }}</strong>
+                  </div>
+                </button>
+              </div>
+            </div>
+          </ng-container>
+        </div>
+      </section>
+
+      <section class="card mb-4" *ngIf="selectedService">
+        <div class="card-body">
+          <h2 class="h5 mb-3">Select a professional</h2>
+          <div class="row g-3">
+            <div class="col-md-6" *ngFor="let professional of filteredProfessionals">
+              <button
+                type="button"
+                class="card professional-card h-100 text-start w-100"
+                [class.selected]="selectedProfessional?.id === professional.id"
+                (click)="selectProfessional(professional)"
+              >
+                <div class="card-body">
+                  <h4 class="h6 mb-1">{{ professional.name }}</h4>
+                  <span *ngIf="professional.isPrimary" class="badge text-bg-light">Primary</span>
+                </div>
+              </button>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section class="card mb-4" *ngIf="selectedProfessional">
+        <div class="card-body">
+          <h2 class="h5 mb-3">Select date and slot</h2>
+          <input
+            class="form-control mb-3"
+            type="date"
+            [value]="selectedDate"
+            (change)="onDateChanged($any($event.target).value)"
+          />
+          <div *ngIf="loadingSlots" class="text-muted">Loading slots...</div>
+          <div *ngIf="!loadingSlots && slots.length === 0 && selectedDate" class="text-muted">
+            No slots available for this date.
+          </div>
+          <div class="d-flex flex-wrap gap-2">
+            <button
+              type="button"
+              class="btn btn-outline-primary"
+              *ngFor="let slot of slots"
+              [class.btn-primary]="selectedSlot?.startTimeUtc === slot.startTimeUtc"
+              [class.text-white]="selectedSlot?.startTimeUtc === slot.startTimeUtc"
+              (click)="selectSlot(slot)"
+            >
+              {{ slot.displayTime }}
+            </button>
+          </div>
+        </div>
+      </section>
+
+      <section class="card" *ngIf="selectedSlot">
+        <div class="card-body">
+          <h2 class="h5 mb-3">Customer details</h2>
+          <form [formGroup]="customerForm" (ngSubmit)="submitBooking()">
+            <div class="row g-3">
+              <div class="col-md-6">
+                <label class="form-label">Name</label>
+                <input class="form-control" formControlName="name" />
+              </div>
+              <div class="col-md-6">
+                <label class="form-label">Phone</label>
+                <input class="form-control" formControlName="phone" placeholder="+15551234567" />
+              </div>
+              <div class="col-md-6">
+                <label class="form-label">Email</label>
+                <input class="form-control" formControlName="email" placeholder="customer@example.invalid" />
+              </div>
+              <div class="col-12">
+                <label class="form-label">Notes</label>
+                <textarea class="form-control" rows="2" formControlName="notes"></textarea>
+              </div>
+            </div>
+            <button class="btn btn-primary mt-3" [disabled]="submitting">
+              {{ submitting ? 'Submitting...' : 'Create appointment' }}
+            </button>
+          </form>
+        </div>
+      </section>
+    </ng-container>
+
+    <section class="card border-success" *ngIf="success">
+      <div class="card-body text-center py-5">
+        <h2 class="h4 text-success">Booking confirmed</h2>
+        <p class="mb-1">Your demo appointment has been created successfully.</p>
+        <p class="text-muted">You can refresh the page to book again.</p>
+      </div>
+    </section>
+  </main>
+</div>

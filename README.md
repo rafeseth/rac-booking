@@ -159,20 +159,6 @@ Then access:
 - API: http://localhost:5000  
 - Frontend: http://localhost:4200  
 
-For the **portfolio API** (`src/Api`) with PostgreSQL: apply EF migrations, run in **Development**, then use the demo tenant slug `demo-salon`. Step-by-step instructions: [docs/local-demo.md](docs/local-demo.md).
-
-### Portfolio isolated local database
-
-The portfolio project includes a dedicated `docker-compose.yml` under `PORTFOLIO/rac-booking` with PostgreSQL exposed on **port 5433** to avoid conflicts with other local systems.
-
-Start database:
-
-`docker-compose up -d`
-
-Run API:
-
-`dotnet run --project src/Api`
-
 ---
 
 ## ⚡ Quick Demo
