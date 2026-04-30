@@ -55,3 +55,35 @@ Administrators can manage services, professionals, and which services each profe
 - CQRS with MediatR
 - Dockerized environment
 - Designed to support multi-tenant scenarios
+
+## Booking Flow
+
+### 1. Landing
+
+![Banner](./docs/screenshots/public-booking-banner.png)
+
+### 2. Select Service
+
+![Service](./docs/screenshots/select-service.png)
+
+### 3. Select Professional
+
+![Professional](./docs/screenshots/select-professional.png)
+
+### 4. Select Date
+
+![Date](./docs/screenshots/select-date.png)
+
+### 5. Select Time
+
+![Availability](./docs/screenshots/availability.png)
+
+### 6. Confirmation
+
+![Confirmation](./docs/screenshots/Client-booking-confirmation.png)
+
+---
+
+## Admin Dashboard
+
+![Admin](./docs/screenshots/admin-calendar.png)
