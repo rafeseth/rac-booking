@@ -161,6 +161,53 @@ Then access:
 
 ---
 
+## ⚡ Quick Demo
+
+After starting the local database and running the API, use the demo tenant:
+
+**Base URL:** `http://localhost:5280`
+**Demo slug:** `demo-salon`
+
+---
+
+### 1) Load demo salon
+
+GET /api/public/salon/demo-salon
+
+---
+
+### 2) Check availability
+
+Use `professionalId` and `serviceId` from the salon response:
+
+GET /api/public/availability?slug=demo-salon&professionalId={professionalId}&serviceId={serviceId}&date=2026-07-21
+
+---
+
+### 3) Create an appointment
+
+Use a `startTimeUtc` returned by the availability endpoint.
+
+POST /api/public/appointments?slug=demo-salon
+Content-Type: application/json
+
+{
+"name": "Test Customer",
+"phone": "+15551234567",
+"email": "[customer@example.invalid](mailto:customer@example.invalid)",
+"professionalId": "f6a7b8c9-d0e1-4234-f567-89abcdef0123",
+"serviceId": "c3d4e5f6-a7b8-4901-c234-56789abcdef0",
+"startTime": "2026-07-21T14:00:00Z",
+"notes": "Quick demo booking",
+"attendanceLocationType": "Salon"
+}
+
+---
+
+> The API expects appointment times in UTC format (e.g. `2026-07-21T14:00:00Z`).
+> Availability results include tenant-local display times and UTC start times.
+
+
 ## 🕒 Time Handling
 
 All date/time values are handled in UTC at the API level.
