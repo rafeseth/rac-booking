@@ -1,4 +1,3 @@
-# rac-booking
 # RAC Booking
 
 A scalable scheduling platform designed for service-based businesses, with support for multi-tenant architectures.
