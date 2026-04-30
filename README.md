@@ -10,6 +10,10 @@ The system focuses on availability accuracy, scalability, and real-world schedul
 
 ---
 
+## 👀 Demo
+
+A visual walkthrough is available here: [Demo](./docs/DEMO.md)
+
 ## 🧠 Key Features
 
 - Online self-booking for clients
