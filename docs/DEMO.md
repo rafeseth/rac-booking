@@ -1,104 +1,57 @@
-# RAC Booking
+# RAC Booking Demo
 
-A scalable scheduling platform designed for service-based businesses, with support for multi-tenant architectures.
+This document presents the main flows of RAC Booking through screenshots and technical notes.
 
-## ✨ Overview
+## 1. Public Booking Flow
 
-RAC Booking allows customers to book appointments online while giving business owners full control over scheduling, professionals, and services.
+Customers can book appointments online by selecting:
 
-The system focuses on availability accuracy, scalability, and real-world scheduling constraints, including support for multi-tenant scenarios.
+1. Service
+2. Professional
+3. Date
+4. Available time slot
+5. Customer information
 
----
-
-## 🧠 Key Features
-
-- Online self-booking for clients
-- Professional-based scheduling
-- Availability engine with conflict prevention
-- Buffer handling between appointments
-- Dynamic tenant branding (logo, colors, banner)
-- Role-based access (Admin / Professional)
-- Designed to support both single-tenant and multi-tenant deployments
+![Public Booking](./screenshots/public-booking.png)
 
 ---
 
-## 🏗️ Architecture
+## 2. Availability Engine
 
-The project follows **Clean Architecture** principles:
+The availability engine calculates valid time slots based on:
 
-- **Domain** – core business rules
-- **Application** – use cases (CQRS with MediatR)
-- **Infrastructure** – EF Core, PostgreSQL, external services
-- **API** – REST endpoints
+- Professional working hours
+- Existing appointments
+- Schedule blocks
+- Service duration
+- Buffer time between appointments
 
-### Patterns & Practices
+![Availability](./screenshots/availability.png)
 
+---
+
+## 3. Admin Calendar
+
+Business owners can manage appointments from an internal calendar view.
+
+![Admin Calendar](./screenshots/admin-calendar.png)
+
+---
+
+## 4. Services and Professionals
+
+Administrators can manage services, professionals, and which services each professional can perform.
+
+![Services](./screenshots/services.png)
+
+---
+
+## 5. Architecture Highlights
+
+- .NET 8 backend
+- Angular frontend
+- PostgreSQL database
+- Clean Architecture
 - CQRS with MediatR
-- Repository pattern
-- Dependency Injection
-- Separation of concerns
-- Scalable design for real-world usage
-
----
-
-## ⚙️ Tech Stack
-
-**Backend**
-- .NET 8 (ASP.NET Core)
-- Entity Framework Core
-- PostgreSQL
-
-**Frontend**
-- Angular
-- Bootstrap
-
-**Infrastructure**
-- Docker / Docker Compose
-- DigitalOcean (Droplet + Spaces)
-- Nginx
-
----
-
-## 🔥 Highlights
-
-### Availability Engine
-- Prevents overlapping appointments
-- Considers:
-  - Working hours
-  - Existing bookings
-  - Schedule blocks
-  - Service duration + buffer time
-
-### Flexible Architecture
-- Designed to scale from single-tenant to multi-tenant environments
-- Clean separation between layers
-- Easy to extend and maintain
-
-### Booking Flow
-1. Select service
-2. Select professional
-3. Select date
-4. Select available time slot
-5. Confirm booking
-
----
-
-## 📸 Screenshots
-
-> Add screenshots here:
-- Public booking page
-- Admin dashboard
-- Calendar view
-
----
-
-## 🚀 Running Locally
-bash
-docker-compose up --build
-
-Then access:
-- API: http://localhost:5000
-- Frontend: http://localhost:4200
-
-📌 Notes
-This project was built with real-world constraints in mind, focusing on reliability, maintainability, and scalability.
+- Dockerized environment
+- Designed to support multi-tenant scenarios
