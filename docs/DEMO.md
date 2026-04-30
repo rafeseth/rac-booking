@@ -12,6 +12,16 @@ The customer starts on a tenant-branded public booking page.
 
 ![Public Booking Home](./screenshots/01-public-booking-home.png)
 
+> ℹ️ **Dynamic Branding**
+> 
+> The banner image, colors, and overall visual identity are fully configurable per tenant.
+> 
+> Each salon can customize:
+> - primary, secondary, and accent colors
+> - logo and header/banner image
+> - general visual identity of the booking page
+> - allowing the application to reflect each tenant’s brand identity
+> The screenshot above shows one example tenant configuration.
 ---
 
 ## 2. Service Selection
